@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cyberpunk-bg text-gray-300 antialiased font-sans overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-cyberpunk-panel/80 backdrop-blur-md border border-cyberpunk-cyan/20 shadow-[0_0_15px_rgba(14,165,233,0.1)];
+  }
+  .neon-text-cyan {
+    text-shadow: 0 0 5px rgba(14, 165, 233, 0.5), 0 0 15px rgba(14, 165, 233, 0.3);
+  }
+  .neon-text-magenta {
+    text-shadow: 0 0 5px rgba(183, 0, 255, 0.5), 0 0 15px rgba(183, 0, 255, 0.3);
+  }
+  .neon-border-cyan {
+    box-shadow: 0 0 10px rgba(14, 165, 233, 0.3), inset 0 0 10px rgba(14, 165, 233, 0.1);
+  }
+  
+  /* Animación de escaneo para las tarjetas */
+  .scanline {
+    position: relative;
+    overflow: hidden;
+  }
+  .scanline::after {
+    content: "";
+    position: absolute;
+    top: -100%;
+    left: 0;
+    right: 0;
+    height: 50%;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(14, 165, 233, 0.1),
+      transparent
+    );
+    animation: scan 4s linear infinite;
+    pointer-events: none;
+  }
+}
+
+@keyframes scan {
+  0% { top: -100%; }
+  100% { top: 200%; }
+}
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #080B13;
+}
+::-webkit-scrollbar-thumb {
+  background: #0ea5e9;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #b700ff;
+}
