@@ -1,7 +1,7 @@
 import React from 'react';
-import { 
-  Terminal, Code2, GitMerge, Database, FileJson, 
-  PlayCircle, GitBranch, ShieldCheck, ChevronRight, Check 
+import {
+  Terminal, Code2, GitMerge, Database, FileJson,
+  PlayCircle, GitBranch, ShieldCheck, ChevronRight, Check
 } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -9,9 +9,9 @@ const Hero = () => (
   <header className="relative min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden">
     <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-cyberpunk-cyan/10 rounded-full blur-[120px] pointer-events-none"></div>
-    
+
     <div className="container mx-auto px-6 relative z-10">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
@@ -24,11 +24,11 @@ const Hero = () => (
         <div className="mb-8 flex justify-center">
           <img src="/Logo ENIGMA.png" alt="Enigma Compiler Logo" className="h-32 md:h-48 object-contain drop-shadow-[0_0_25px_rgba(14,165,233,0.5)]" />
         </div>
-        
+
         <p className="text-xl md:text-2xl text-gray-400 mb-12 font-light">
           Un Lenguaje de Dominio Específico (DSL) para la gestión segura y eficiente de políticas de control de accesos empresariales (RBAC/ABAC).
         </p>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left max-w-2xl mx-auto mb-12">
           <div className="glass-panel p-6 rounded-xl border-l-4 border-l-cyberpunk-cyan hover:bg-cyberpunk-panel transition-colors">
             <h3 className="text-cyberpunk-cyan font-bold mb-2 uppercase tracking-wide text-sm">Equipo de Desarrollo</h3>
@@ -70,7 +70,7 @@ const SectionHeading = ({ title, subtitle, icon: Icon, color = "cyan" }) => {
     green: 'shadow-[0_0_15px_rgba(4,120,87,0.3)] bg-cyberpunk-green/20 text-cyberpunk-green border-cyberpunk-green/30',
     yellow: 'shadow-[0_0_15px_rgba(255,204,0,0.3)] bg-cyberpunk-yellow/20 text-cyberpunk-yellow border-cyberpunk-yellow/30',
   };
-  
+
   return (
     <div className="mb-12">
       <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl mb-6 border ${colorClasses[color]}`}>
@@ -132,7 +132,7 @@ const FeaturePhase = ({ num, title, description, items, icon, isRight, color, co
   );
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -167,9 +167,9 @@ function App() {
       <main className="container mx-auto px-6 py-20 relative z-10">
         {/* Introducción */}
         <section id="introduccion" className="py-20 border-t border-white/5">
-          <SectionHeading 
+          <SectionHeading
             icon={Code2} color="cyan"
-            title="¿Qué es Enigma?" 
+            title="¿Qué es Enigma?"
             subtitle="Un lenguaje diseñado específicamente para definir, validar y exportar políticas de seguridad en entornos corporativos."
           />
           <div className="grid md:grid-cols-3 gap-8">
@@ -195,7 +195,7 @@ function App() {
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">Conoce cómo Enigma transforma texto plano en un árbol lógico validado estructural y semánticamente.</p>
           </div>
 
-          <FeaturePhase 
+          <FeaturePhase
             num="1" color="cyan" isRight={false} icon={Terminal}
             title="Analizador Léxico (Scanner)"
             description="El compilador lee el código fuente carácter por carácter y lo agrupa en unidades lógicas llamadas 'Tokens'. Elimina espacios en blanco y comentarios."
@@ -214,7 +214,7 @@ Definir Rol Admin;
 [TOKEN_PUNTO_Y_COMA, ";", Línea 1]`}
           />
 
-          <FeaturePhase 
+          <FeaturePhase
             num="2" color="magenta" isRight={true} icon={GitMerge}
             title="Analizador Sintáctico (Parser)"
             description="Verifica que el orden de los tokens respete la gramática del lenguaje (BNF). Transforma la lista de tokens en una estructura jerárquica: el AST."
@@ -234,7 +234,7 @@ ProgramNode
         └── Modulo: Usuarios`}
           />
 
-          <FeaturePhase 
+          <FeaturePhase
             num="3" color="green" isRight={false} icon={ShieldCheck}
             title="Analizador Semántico"
             description="Da 'significado' a las estructuras validando la coherencia y las reglas de negocio usando el patrón Visitor sobre el AST."
@@ -254,7 +254,7 @@ Si (HoraActual > 18) Entonces {
 }`}
           />
 
-          <FeaturePhase 
+          <FeaturePhase
             num="4" color="yellow" isRight={true} icon={Database}
             title="Tabla de Símbolos"
             description="Estructura de datos en memoria que actúa como el 'cerebro' del compilador guardando el contexto de todas las entidades declaradas."
@@ -271,7 +271,7 @@ Si (HoraActual > 18) Entonces {
 | HoraActual    | ABAC    | -             | -                  | 4   |`}
           />
 
-          <FeaturePhase 
+          <FeaturePhase
             num="5" color="cyan" isRight={false} icon={FileJson}
             title="Generación de Código (Salida JSON)"
             description="Una vez validado el programa, el AST y la Tabla de Símbolos se traducen a un formato estándar consumible por aplicaciones de terceros."
@@ -301,17 +301,22 @@ Si (HoraActual > 18) Entonces {
             <h2 className="text-4xl font-black text-white mb-4">Demostración en Vivo</h2>
             <p className="text-gray-400 max-w-2xl mx-auto">La Interfaz Gráfica desarrollada en PyQt6 proporciona una experiencia de IDE completa con Modo Didáctico animado.</p>
           </div>
-          
+
           <div className="glass-panel p-2 rounded-2xl border border-cyberpunk-cyan/30 overflow-hidden mx-auto max-w-5xl shadow-[0_0_50px_rgba(0,243,255,0.15)]">
-            <div className="aspect-video bg-[#0a0a10] rounded-xl flex items-center justify-center relative overflow-hidden">
-              {/* Aquí idealmente iría un tag <video> o un <img> con un GIF. Como placeholder usamos un layout estético */}
-              <div className="absolute inset-0 bg-gradient-to-br from-cyberpunk-cyan/10 to-cyberpunk-magenta/10"></div>
-              <div className="text-center z-10 p-8">
-                <PlayCircle size={64} className="mx-auto mb-4 text-cyberpunk-cyan opacity-80" />
-                <h3 className="text-2xl font-bold text-white mb-2">Modo Didáctico</h3>
-                <p className="text-gray-400">Inserta tu GIF o Video Demostrativo Aquí en el código (`src/App.jsx` línea 265).</p>
-                <code className="block mt-4 text-xs text-cyberpunk-magenta bg-black/50 p-2 rounded">&lt;img src="/demo.gif" alt="Demo Enigma" className="w-full h-full object-cover" /&gt;</code>
-              </div>
+            <div className="aspect-video bg-[#0a0a10] rounded-xl relative overflow-hidden group border border-white/10">
+              <video 
+                className="w-full h-full object-contain"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src="/video_enigma.mp4" type="video/mp4" />
+                Tu navegador no soporta el tag de video.
+              </video>
+              {/* Overlay sutil para mantener la estética cyberpunk */}
+              <div className="absolute inset-0 pointer-events-none border-2 border-cyberpunk-cyan/10 rounded-xl group-hover:border-cyberpunk-cyan/30 transition-colors"></div>
             </div>
           </div>
         </section>
