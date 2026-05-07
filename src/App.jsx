@@ -82,6 +82,66 @@ const SectionHeading = ({ title, subtitle, icon: Icon, color = "cyan" }) => {
   );
 };
 
+const ArchitectureDiagram = () => {
+  const steps = [
+    { name: "Código", icon: Code2, color: "text-gray-400", border: "border-gray-600", shadow: "shadow-[0_0_15px_rgba(156,163,175,0.2)]" },
+    { name: "Scanner", icon: Terminal, color: "text-cyberpunk-cyan", border: "border-cyberpunk-cyan/50", shadow: "shadow-[0_0_15px_rgba(14,165,233,0.3)]" },
+    { name: "Parser", icon: GitMerge, color: "text-cyberpunk-magenta", border: "border-cyberpunk-magenta/50", shadow: "shadow-[0_0_15px_rgba(183,0,255,0.3)]" },
+    { name: "Semántica", icon: ShieldCheck, color: "text-cyberpunk-green", border: "border-cyberpunk-green/50", shadow: "shadow-[0_0_15px_rgba(4,120,87,0.3)]" },
+    { name: "Salida JSON", icon: FileJson, color: "text-cyberpunk-yellow", border: "border-cyberpunk-yellow/50", shadow: "shadow-[0_0_15px_rgba(255,204,0,0.3)]" }
+  ];
+
+  return (
+    <div className="flex flex-col lg:flex-row items-center justify-center gap-4 lg:gap-6 mb-24 w-full py-8">
+      {steps.map((step, index) => (
+        <React.Fragment key={index}>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: index * 0.2 }}
+            viewport={{ once: true, margin: "-50px" }}
+            className={`flex flex-col items-center justify-center w-36 h-36 rounded-xl glass-panel border ${step.border} ${step.shadow} relative z-10 hover:-translate-y-2 transition-transform duration-300`}
+          >
+            <step.icon size={36} className={`mb-3 ${step.color}`} />
+            <span className="text-sm font-bold text-center text-white">{step.name}</span>
+          </motion.div>
+
+          {index < steps.length - 1 && (
+            <>
+              {/* Arrow Desktop */}
+              <motion.div 
+                className="hidden lg:flex flex-col items-center justify-center relative w-12"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                viewport={{ once: true }}
+              >
+                <div className="h-1 w-full bg-white/10 relative overflow-hidden rounded-full">
+                  <motion.div 
+                    className="absolute top-0 left-0 h-full w-full bg-gradient-to-r from-transparent via-cyberpunk-cyan to-transparent"
+                    animate={{ x: ['-100%', '100%'] }}
+                    transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+                  />
+                </div>
+              </motion.div>
+              {/* Arrow Mobile */}
+              <motion.div 
+                className="flex lg:hidden flex-col items-center justify-center h-8"
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 0.5, delay: index * 0.2 + 0.3 }}
+                viewport={{ once: true }}
+              >
+                <ChevronRight className="text-gray-500 rotate-90" size={24} />
+              </motion.div>
+            </>
+          )}
+        </React.Fragment>
+      ))}
+    </div>
+  );
+};
+
 const FeaturePhase = ({ num, title, description, items, icon, isRight, color, codeSnippet }) => {
   const badgeClasses = {
     cyan: 'bg-cyberpunk-cyan/20 text-cyberpunk-cyan border-cyberpunk-cyan/30',
@@ -157,6 +217,7 @@ function App() {
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-400">
             <a href="#introduccion" className="hover:text-white transition-colors">Introducción</a>
             <a href="#descripcion-lenguaje" className="hover:text-white transition-colors">Lenguaje</a>
+            <a href="#gramatica" className="hover:text-white transition-colors">Gramática</a>
             <a href="#fases" className="hover:text-white transition-colors">Fases</a>
             <a href="#demostracion" className="hover:text-white transition-colors">Demostración</a>
           </div>
@@ -222,12 +283,85 @@ function App() {
           </div>
         </section>
 
+        {/* Gramática BNF */}
+        <section id="gramatica" className="py-20 border-t border-white/5">
+          <SectionHeading
+            icon={Code2} color="green"
+            title="Gramática Formal (BNF)"
+            subtitle="Las reglas de producción que definen la estructura sintáctica del lenguaje Enigma."
+          />
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="glass-panel p-2 md:p-6 rounded-2xl border border-cyberpunk-green/30 shadow-[0_0_30px_rgba(4,120,87,0.1)]"
+          >
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse min-w-[600px]">
+                <thead>
+                  <tr className="border-b border-white/10 text-cyberpunk-green bg-cyberpunk-green/5">
+                    <th className="p-4 font-mono font-bold rounded-tl-xl">No Terminal</th>
+                    <th className="p-4 font-mono font-bold w-12 text-center">::=</th>
+                    <th className="p-4 font-mono font-bold rounded-tr-xl">Producción</th>
+                  </tr>
+                </thead>
+                <tbody className="text-gray-300 font-mono text-sm sm:text-base">
+                  <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;programa&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4">&lt;lista_instrucciones&gt;</td>
+                  </tr>
+                  <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;lista_instrucciones&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4">&lt;instruccion&gt; &lt;lista_instrucciones&gt; <span className="text-gray-500 mx-2">|</span> ε</td>
+                  </tr>
+                  <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;instruccion&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4">&lt;definicion&gt; <span className="text-gray-500 mx-2">|</span> &lt;asignacion&gt; <span className="text-gray-500 mx-2">|</span> &lt;condicional&gt;</td>
+                  </tr>
+                  <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;definicion&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4"><span className="text-cyberpunk-magenta">Definir</span> &lt;tipo_entidad&gt; <span className="text-white">IDENTIFICADOR</span> <span className="text-yellow-500">;</span></td>
+                  </tr>
+                  <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;tipo_entidad&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4"><span className="text-cyberpunk-magenta">Rol</span> <span className="text-gray-500 mx-2">|</span> <span className="text-cyberpunk-magenta">Usuario</span> <span className="text-gray-500 mx-2">|</span> <span className="text-cyberpunk-magenta">Modulo</span></td>
+                  </tr>
+                  <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;asignacion&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4"><span className="text-cyberpunk-magenta">Rol</span> <span className="text-white">IDENTIFICADOR</span> <span className="text-yellow-500">=</span> &lt;accion&gt; <span className="text-white">IDENTIFICADOR</span> <span className="text-yellow-500">;</span></td>
+                  </tr>
+                  <tr className="border-b border-white/5 hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;accion&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4"><span className="text-cyberpunk-magenta">Acceder</span> <span className="text-gray-500 mx-2">|</span> <span className="text-cyberpunk-magenta">Crear</span> <span className="text-gray-500 mx-2">|</span> <span className="text-cyberpunk-magenta">Modificar</span> <span className="text-gray-500 mx-2">|</span> <span className="text-cyberpunk-magenta">Eliminar</span></td>
+                  </tr>
+                  <tr className="hover:bg-white/5 transition-colors">
+                    <td className="p-4 text-cyberpunk-cyan">&lt;condicional&gt;</td>
+                    <td className="p-4 text-center text-gray-500">::=</td>
+                    <td className="p-4"><span className="text-cyberpunk-magenta">Si</span> &lt;expresion&gt; <span className="text-cyberpunk-magenta">Entonces</span> <span className="text-yellow-500">&#123;</span> &lt;lista_instrucciones&gt; <span className="text-yellow-500">&#125;</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+        </section>
+
         {/* Fases del Compilador */}
         <section id="fases" className="py-20">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">El Pipeline <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpunk-cyan to-blue-500">Interno</span></h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">Conoce cómo Enigma transforma texto plano en un árbol lógico validado estructural y semánticamente.</p>
           </div>
+
+          <ArchitectureDiagram />
 
           <FeaturePhase
             num="1" color="cyan" isRight={false} icon={Terminal}
