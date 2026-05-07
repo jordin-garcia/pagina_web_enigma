@@ -156,6 +156,7 @@ function App() {
           </div>
           <div className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-400">
             <a href="#introduccion" className="hover:text-white transition-colors">Introducción</a>
+            <a href="#descripcion-lenguaje" className="hover:text-white transition-colors">Lenguaje</a>
             <a href="#fases" className="hover:text-white transition-colors">Fases</a>
             <a href="#demostracion" className="hover:text-white transition-colors">Demostración</a>
           </div>
@@ -188,6 +189,39 @@ function App() {
           </div>
         </section>
 
+        {/* Descripción del Lenguaje */}
+        <section id="descripcion-lenguaje" className="py-20 border-t border-white/5">
+          <SectionHeading
+            icon={FileJson} color="magenta"
+            title="Descripción del Lenguaje"
+            subtitle="Conoce las instrucciones y la estructura que hacen de Enigma un DSL poderoso."
+          />
+          <div className="glass-panel p-8 rounded-2xl">
+            <p className="text-gray-300 mb-6 leading-relaxed text-lg">
+              Enigma es un lenguaje especializado para controlar el acceso a la información en una empresa de ventas. Permite establecer qué empleados pueden acceder a determinados módulos, qué acciones pueden realizar y bajo qué condiciones de manera estructurada mediante palabras reservadas.
+            </p>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 className="text-xl font-bold text-cyberpunk-cyan mb-4">Instrucciones y Sintaxis</h3>
+                <ul className="space-y-3 text-gray-400">
+                  <li><strong className="text-white">Definición de Entidades:</strong> <code className="text-cyberpunk-magenta">Definir Rol</code>, <code className="text-cyberpunk-magenta">Definir Usuario</code>, <code className="text-cyberpunk-magenta">Definir Modulo</code></li>
+                  <li><strong className="text-white">Asignación de Accesos:</strong> Vincular roles con permisos usando <code className="text-cyberpunk-magenta">Rol [id] = [accion] [id];</code></li>
+                  <li><strong className="text-white">Control de Flujo Lógico:</strong> Permite establecer condicionales para reglas dinámicas <code className="text-cyberpunk-magenta">Si [condicion] Entonces &#123; ... &#125;</code></li>
+                  <li><strong className="text-white">Operaciones de Negocio:</strong> Acciones soportadas sobre módulos como <code className="text-cyberpunk-magenta">Consultar</code>, <code className="text-cyberpunk-magenta">Registrar</code>, <code className="text-cyberpunk-magenta">Eliminar</code></li>
+                </ul>
+              </div>
+              <div className="bg-black/30 p-5 rounded-xl border border-white/10 font-mono text-sm text-gray-300">
+                <span className="text-gray-500">{"// Ejemplo de un programa válido en Enigma"}</span><br/><br/>
+                <span className="text-cyberpunk-cyan">Definir</span> Modulo Ventas;<br/>
+                <span className="text-cyberpunk-cyan">Definir</span> Rol Gerente;<br/><br/>
+                <span className="text-cyberpunk-cyan">Si</span> Verdadero <span className="text-cyberpunk-cyan">Entonces</span> &#123;<br/>
+                &nbsp;&nbsp;Rol Gerente = <span className="text-cyberpunk-magenta">Acceder</span> Ventas;<br/>
+                &#125;<br/>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Fases del Compilador */}
         <section id="fases" className="py-20">
           <div className="text-center mb-20">
@@ -200,9 +234,9 @@ function App() {
             title="Analizador Léxico (Scanner)"
             description="El compilador lee el código fuente carácter por carácter y lo agrupa en unidades lógicas llamadas 'Tokens'. Elimina espacios en blanco y comentarios."
             items={[
-              "Identificación de Palabras Reservadas (Definir, Rol, Permitir).",
-              "Reconocimiento de identificadores y literales (cadenas, números).",
-              "Manejo avanzado de errores léxicos: No se detiene al primer error, sugiere correcciones usando distancia de Levenshtein."
+              "Identificación de Palabras Reservadas (Definir, Rol, Usuario, Si, Entonces, Permitir, etc).",
+              "Reconocimiento de identificadores, números, y símbolos/operadores (=, ==, <, >, {, }, ;).",
+              "Detección de errores léxicos: Identifica símbolos no definidos en el alfabeto (ej. 'Usuario@1' lanza error por el símbolo '@')."
             ]}
             codeSnippet={`// Entrada:
 Definir Rol Admin;
@@ -219,9 +253,9 @@ Definir Rol Admin;
             title="Analizador Sintáctico (Parser)"
             description="Verifica que el orden de los tokens respete la gramática del lenguaje (BNF). Transforma la lista de tokens en una estructura jerárquica: el AST."
             items={[
-              "Analizador Descendente Predictivo (Recursive Descent).",
-              "Construcción del Árbol de Sintaxis Abstracta (AST) con 14 tipos de nodos.",
-              "Recuperación de Errores (Modo Pánico): Sincroniza en delimitadores (;) para no crashear y seguir buscando errores."
+              "Verificación mediante reglas de gramática BNF (ej. <programa> ::= <lista_instrucciones>).",
+              "Código Válido: 'Rol Gerente = Acceder Reportes;' (Cumple la estructura y usa símbolos permitidos).",
+              "Código Inválido: 'Acceder == Ventas;' (Falla porque '==' no está definido en el contexto gramatical de esta instrucción)."
             ]}
             codeSnippet={`// Árbol Sintáctico (AST) generado:
 ProgramNode

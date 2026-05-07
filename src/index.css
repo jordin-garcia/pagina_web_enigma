@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
   body {
     @apply bg-cyberpunk-bg text-gray-300 antialiased font-sans overflow-x-hidden;
   }
