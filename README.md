@@ -33,7 +33,7 @@ Esta página web, construida con **React**, **Vite** y **Tailwind CSS**, present
 
 ## Tecnologías Utilizadas
 
--   **Frontend:** React, Vite, Tailwind CSS, Lucide React, Framer Motion.
+-   **Frontend (Página Web):** React, Vite, Tailwind CSS, Lucide React, Framer Motion.
 -   **Backend (Compilador):** Python, PyQt6 (para la GUI del IDE).
 
 ---
